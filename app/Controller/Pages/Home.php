@@ -7,22 +7,22 @@ use \App\Model\Entity\Organization;
 class Home extends Page
 {
     /**
-     * metodo resposavel por retornar a view da home
+     * METODO RESPOSAVEL POR RETORNAR A VIEW DA HOME
      * @return string
      */
     public static function getHome()
     {
 
-    $objOrganization = new Organization;
+        $objOrganization = new Organization;
 
-        // conteudo View da home
-        $content = View::render('pages/Home', [
+        // CONTEUDO VIEW DA HOME
+        $content = View::render('pages/home', [
             'name' => $objOrganization->name,
-            'description' => $objOrganization->description,
-            'site' => $objOrganization->site
+            'description' => $objOrganization->description
+           
         ]);
 
-        // retorna a view da pagina
-        return parent::getPage('Wdev Canal - Home', $content);
+        // RETORNA A VIEW DA PAGINA
+        return parent::getPage('HOME > WDEV', $content);
     }
 }

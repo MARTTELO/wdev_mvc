@@ -7,7 +7,7 @@ class Page
 {
 
     /**
-     * metodo responsavel por renderizar o topo da página
+     * METODO RESPONSAVEL POR RENDERIZAR O TOPO DA PÁGINA
      * @return string
      */
     public static function getHeader()
@@ -17,7 +17,7 @@ class Page
 
 
     /**
-     * metodo responsavel por renderizar o rodape da página
+     * METODO RESPONSAVEL POR RENDERIZAR O RODAPE DA PÁGINA
      * @return string
      */
     public static function getFooter()
@@ -30,7 +30,7 @@ class Page
 
 
     /**
-     * metodo resposavel por retornar a view da home
+     * METODO RESPOSAVEL POR RETORNAR A VIEW DA HOME
      * @return string
      */
     public static function getPage($title, $content)

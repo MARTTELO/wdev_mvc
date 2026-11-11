@@ -13,7 +13,7 @@ class Organization
 
     public $description = 'lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel tincidunt lacinia, nunc nisl aliquam nunc, eget aliquam nisl nunc vel nisl. Sed euismod, nisl vel tincidunt lacinia, nunc nisl aliquam nunc, eget aliquam nisl nunc vel nisl.';
 
-    /* metodo responsavel por retornar o nome da empresa
+    /* METODO RESPONSAVEL POR RETORNAR O NOME DA EMPRESA
      * @return string
      */
     public static function getName()
@@ -22,7 +22,7 @@ class Organization
     }
 
     /**
-     * metodo responsavel por retornar a descrição da empresa
+     * METODO RESPONSAVEL POR RETORNAR A DESCRIÇÃO DA EMPRESA
      * @return string
      */
 

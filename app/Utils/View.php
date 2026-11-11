@@ -6,19 +6,37 @@ class View
 {
 
     /**
-     * Smetodo responsavel por retornar o conteudo de uma view
+     * VARIÁVEIS PADRÕES DA VIEW
+     * @var array
+     */
+    private static $vars = [];
+
+
+    /**
+     * MÉTODO RESPONSÁVEL POR DEFINIR OS DADOS INICIAIS DA CLASSE
+     * @param array $vars
+     * @return void
+     */
+    public static function init($vars = [])
+    {
+        self::$vars = $vars;
+    }
+
+
+    /**
+     * SMETODO RESPONSAVEL POR RETORNAR O CONTEUDO DE UMA VIEW
      * @param string $view
      * @return string
      */
     private static function getContentView($view)
     {
-        // localiza o arquivo da view passado como parametro
+        // LOCALIZA O ARQUIVO DA VIEW PASSADO COMO PARAMETRO
         $file = __DIR__ . '/../../resources/view/' . $view . '.html';
         return file_exists($file) ? file_get_contents($file) : '';
     }
 
     /**
-     * metodo responsavel por retornar uma view renderizada
+     * METODO RESPONSAVEL POR RETORNAR UMA VIEW RENDERIZADA
      * @param string $view
      * @param array $vars (string / numeric)     * @return string
      */
@@ -26,10 +44,13 @@ class View
 
     public static function render($view, $vars = [])
     {
-        // conteudo da view
+        // CONTEUDO DA VIEW
         $contentView = self::getContentView($view);
 
-        //mostrando chaves do Aray de variaveis para o conteudo da view
+        //MERGE DE VARIAVEIS DA VIEW
+        $vars = array_merge(self::$vars, $vars);
+
+        //MOSTRANDO CHAVES DO ARAY DE VARIAVEIS PARA O CONTEUDO DA VIEW
         $keys = array_keys($vars);
         $keys = array_map(function ($item) {
             return '{{' . $item . '}}';
@@ -40,16 +61,16 @@ class View
         // echo "</pre>";
 
 
-        // mostrando valores do Array de variaveis para o conteudo da view
+        // MOSTRANDO VALORES DO ARRAY DE VARIAVEIS PARA O CONTEUDO DA VIEW
         $values = array_values($vars);
         // echo "<pre>";
         // print_r($values);
         // echo "</pre>";
 
-        // substitui as chaves pelos valores
+        // SUBSTITUI AS CHAVES PELOS VALORES
         $contentView = str_replace($keys, $values, $contentView);
 
-        // retorna o conteudo da view
+        // RETORNA O CONTEUDO DA VIEW
         return str_replace($keys, $values, $contentView);
     }
 

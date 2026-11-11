@@ -1,0 +1,12 @@
+{
+  "Debug print_r": {
+    "prefix": "deb_pr",
+    "scope": "php",
+    "body": [
+      "echo '<pre>';",
+      "print_r(\\$variavel);",
+      "echo '</pre>';"
+    ],
+    "description": "Exibe uma variável formatada e encerra a execução"
+  }
+}
