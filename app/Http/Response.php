@@ -53,7 +53,7 @@ class Response
     public function setContentType($contentType)
     {
         $this->contentType = $contentType;
-        $this->addHeader('Content-Type:', $contentType);
+        $this->addHeader('Content-Type', $contentType);
     }
 
     /**
@@ -84,7 +84,7 @@ class Response
     }
 
     /**
-     * MÉTODO RESPONSÁVEL POR ENVIAR A REPONSTA PARA O USUÁRIO
+     * MÉTODO RESPONSÁVEL POR ENVIAR A REPOSTA PARA O USUÁRIO
      * @return void
      */
     public function sendResposne()

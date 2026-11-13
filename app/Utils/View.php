@@ -24,7 +24,7 @@ class View
 
 
     /**
-     * SMETODO RESPONSAVEL POR RETORNAR O CONTEUDO DE UMA VIEW
+     * METODO RESPONSAVEL POR RETORNAR O CONTEUDO DE UMA VIEW
      * @param string $view
      * @return string
      */

@@ -1,6 +1,6 @@
 <?php
 
-require_once 'vendor/autoload.php';
+require __DIR__ . '/includes/app.php';
 
 use \App\Http\Router;
 
@@ -31,7 +31,9 @@ use \App\Http\Router;
 $obRouter = new Router(URL);
 
 //INCLUINDO AS ROTAS DE PÁGINA
-include __DIR__.'/routes/pages.php';
+include __DIR__ . '/routes/pages.php';
 
 
 $obRouter->run()->sendResposne();
+
+

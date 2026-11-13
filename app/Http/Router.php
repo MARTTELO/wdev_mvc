@@ -46,7 +46,7 @@ class Router
 
     public function __construct($url)
     {
-        $this->request = new Request();
+        $this->request = new Request($this);
         $this->url = $url;
         $this->setPrefix();
 
@@ -233,6 +233,7 @@ class Router
             $args = [];
 
             //REFLECTION
+            //CLASSE QUE FAZ UM ESPELHO DA FUNÇÃO 
             $reflection = new ReflectionFunction($route['controller']);
             foreach($reflection->getParameters() as $parameter){
                 $name = $parameter->getName();
@@ -240,7 +241,6 @@ class Router
 
             }
 
-            //CLASSE QUE FAZ UM ESPELHO DA FUNÇÃO 
 
             //RETORNA A EXECUÇÃO DA RUN
             return call_user_func_array($route['controller'], $args);
@@ -249,6 +249,15 @@ class Router
             return new Response($e->getCode(), $e->getMessage());
         }
 
+    }
+
+
+    /**
+     * METODO RESPONSAVEL POR RETORNAR A URL ATUAL
+     * @return string
+     */
+    public  function getCurrentUrl(){
+        return $this->url.$this->getUri();
     }
 }
 
