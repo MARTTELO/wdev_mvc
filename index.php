@@ -33,6 +33,8 @@ $obRouter = new Router(URL);
 //INCLUINDO AS ROTAS DE PÁGINA
 include __DIR__ . '/routes/pages.php';
 
+//INCLUINDO AS ROTAS DO PAINEL
+include __DIR__ . '/routes/admin.php';
 
 $obRouter->run()->sendResposne();
 
