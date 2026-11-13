@@ -6,6 +6,7 @@ use \Closure;
 use Exception;
 use \App\Http\Request;
 use ReflectionFunction;
+use \App\Http\Middleware\Queue as MiddlewareQueue;
 
 class Router
 {
@@ -76,11 +77,15 @@ class Router
         //REMOVE O ESPAÇO EM BRANCO DA ROTA CASO TENHA SIDO DIGITADO POR ENGANO
         $route = trim($route);
 
+        //MIDDLEWARES DA ROTA
+        $params['middlewares'] = $params['middlewares'] ?? [];
+
         //VALIDAÇÃO DOS PARAMENTROS
         foreach ($params as $key => $value) {
             if ($value instanceof Closure) {
                 $params['controller'] = $value;
                 unset($params[$key]);
+                continue;
 
             }
 
@@ -215,7 +220,7 @@ class Router
 
     /**
      * Método responsável por executar a rota atual
-     * @return Response|null
+     * @return Response
      */
     public function run()
     {
@@ -235,15 +240,23 @@ class Router
             //REFLECTION
             //CLASSE QUE FAZ UM ESPELHO DA FUNÇÃO 
             $reflection = new ReflectionFunction($route['controller']);
-            foreach($reflection->getParameters() as $parameter){
+            foreach ($reflection->getParameters() as $parameter) {
                 $name = $parameter->getName();
                 $args[$name] = $route['variables'][$name] ?? '';
 
             }
 
+            //  RETORNA A EXECUÇÃO DA FILA DE MIDDLEWARES
+            $response = (new MiddlewareQueue($route['middlewares'], $route['controller'], $args))->next($this->request);
+            if (!$response instanceof Response) {
+                throw new Exception('A rota não retornou uma resposta válida', 500);
+            }
 
-            //RETORNA A EXECUÇÃO DA RUN
-            return call_user_func_array($route['controller'], $args);
+            return $response;
+
+
+            // //RETORNA A EXECUÇÃO DA RUN
+            // return call_user_func_array($route['controller'], $args);
 
         } catch (Exception $e) {
             return new Response($e->getCode(), $e->getMessage());
@@ -256,8 +269,9 @@ class Router
      * METODO RESPONSAVEL POR RETORNAR A URL ATUAL
      * @return string
      */
-    public  function getCurrentUrl(){
-        return $this->url.$this->getUri();
+    public function getCurrentUrl()
+    {
+        return $this->url . $this->getUri();
     }
 }
 

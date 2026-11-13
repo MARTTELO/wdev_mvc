@@ -31,12 +31,12 @@ class Testimony extends Page
         $paginaAtual = $queryParams['page'] ?? 1;
 
         //INTANCIA DE PAGINAÇÃO
-        $obPagination = New Pagination($quantidadeTotal, $paginaAtual, 1);
+        $obPagination = New Pagination($quantidadeTotal, $paginaAtual, 3);
 
         //RESULTADOS DA PÁGINA DE 
         $results = EntityTestimony::getTestimonies(null, 'id DESC', $obPagination->getLimit());
 
-        //RENDERIZA O ITEM
+        //RENDERIZA O ITEMkkkk
         while ($obTestimony = $results->fetchObject(EntityTestimony::class)) {
             $itens .= View::render('pages/testimony/item', [
                 'nome' => $obTestimony->nome,

@@ -1,5 +1,6 @@
 <?php
 
+use App\Controller\Pages\Home;
 use App\Http\Response;
 use App\Controller\Pages;
 
@@ -10,9 +11,9 @@ use App\Controller\Pages;
 $obRouter->get('/', [
     function () {
         return new Response(200, Pages\Home::getHome());
-
-
+    
     }
+   
 ]);
 
 //ROTA SOBRE
