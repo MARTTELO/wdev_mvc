@@ -61,6 +61,37 @@ class Testimony
         return true;
     }
 
+
+     /**
+     * Método responsavel por atualizar a instancia atual no banco de dados
+     * @return boolean
+     */
+    public function atualizar()
+    {
+
+        //ATUALIZA O DEPOIMENTO NO BANCO DE DADOS
+        return (new Database('depoimentos'))->update('id = '.$this->id,[
+            'nome' => $this->nome,
+            'mensagem' => $this->mensagem,
+        ]);
+
+    }
+
+    
+     /**
+     * Método responsavel por excluir o depoimento do banco de dados
+     * @return boolean
+     */
+    public function excluir()
+    {
+
+        //EXCLUIR O DEPOIMENTO NO BANCO DE DADOS
+        return (new Database('depoimentos'))->delete('id = '.$this->id);
+
+    }
+
+
+
     /**
      * MÉTODO RESPONSAVEL POR RETORNAR OS DEPOIMENTOS
      * @param string $where
@@ -69,8 +100,20 @@ class Testimony
      * @param string $fields
      * @return PDOStatement
      */
-    public static function getTestimonies($where = null, $order = null, $limit = null, $fields = '*'){
-        return (new Database('depoimentos'))->select($where,$order,$limit,$fields);
+    public static function getTestimonies($where = null, $order = null, $limit = null, $fields = '*')
+    {
+        return (new Database('depoimentos'))->select($where, $order, $limit, $fields);
+    }
+
+
+    /**
+     * MÉTODO RESPONSAVEL POR RETORNAR OS DEPOIMENTOS POR ID
+     * @param integer $id
+     * @return Testimony
+     */
+    public static function getTestimonyById($id)
+    {
+        return self::getTestimonies('id = ' . $id)->fetchObject(self::class);
     }
 
 

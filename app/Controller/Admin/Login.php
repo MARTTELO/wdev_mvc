@@ -23,9 +23,7 @@ class Login extends Page
    {
 
       //STATUS
-      $status = !is_null($errorMessage) ? View::render('admin/login/status', [
-         'mensagem' => $errorMessage
-      ]) : '';
+      $status = !is_null($errorMessage) ? Alert::getError($errorMessage) : '' ;
 
       // $objLogin = new Login;
 
@@ -50,7 +48,7 @@ class Login extends Page
       $senha = $postVars['senha'] ?? '';
 
       //BUSCAR USUÁRIO PELO EMAIL
-      $obUser = User::getUserByRmail($email);
+      $obUser = User::getUserByEmail($email);
 
       if (!$obUser instanceof User) {
          return self::getLogin($request, 'E-mail ou senha inválidos');
